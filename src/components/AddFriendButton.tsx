@@ -3,7 +3,7 @@
 import { addFriendValidator } from '@/lib/validations/add-friend'
 import axios, { AxiosError } from 'axios'
 import { FC, useState } from 'react'
-import Button from './ui/Button'
+import Button from './ui/button'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +13,6 @@ interface AddFriendButtonProps { }
 type FormData = z.infer<typeof addFriendValidator>
 
 const AddFriendButton: FC<AddFriendButtonProps> = ({ }) => {
-    console.log('the add friend button is being rendered', addFriendValidator)
     const [showSuccessState, setShowSuccessState] = useState<boolean>(false)
 
     const {
@@ -26,7 +25,6 @@ const AddFriendButton: FC<AddFriendButtonProps> = ({ }) => {
     })
 
     const addFriend = async (email: string) => {
-        console.log('the add friend button is being clicked', email)
         try {
             const validatedEmail = addFriendValidator.parse({ email })
 
