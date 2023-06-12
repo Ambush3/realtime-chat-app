@@ -7,6 +7,7 @@ import { Icon, Icons } from '@/components/Icons'
 import Image from 'next/image'
 import SignOutButton from '@/components/SignOutButton'
 import FriendRequestsSidebarOption from '@/components/FriendRequestsSidebarOption'
+import { fetchRedis } from '@/helpers/redis'
 
 interface LayoutProps {
     children: ReactNode
@@ -35,8 +36,13 @@ const Layout = async ({ children } : LayoutProps)=> {
     // Last resort. 
     if (!session) notFound()
 
-
-
+    const unseenRequestCount = (
+        await fetchRedis(
+            'smembers', 
+            `user:${session.user.id}:incoming_friend_requests`
+            ) as User[]
+        ).length
+        
     return (
         <div className='w-full flex h-screen'>
             <div className='flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white pad-x-6'>
@@ -49,7 +55,7 @@ const Layout = async ({ children } : LayoutProps)=> {
                 </div>
 
                 <nav className='ms-3 flex flex-1 flex-col'>
-                    <ul role='list' className='flex flex-1 flex-col gap-y-7'>
+                    <ul role='list' className='flex flex-1 flex-col gap-y-2'>
                         <li>
                             {/* TODO: chats that the user has  */}
                         </li>
@@ -79,11 +85,14 @@ const Layout = async ({ children } : LayoutProps)=> {
                         </li>
 
                         <li>
-                            <FriendRequestsSidebarOption />
+                            <FriendRequestsSidebarOption
+                                sessionId={session.user.id}
+                                initialUnseenRequestCount={unseenRequestCount}
+                            />
                         </li>
                         
 
-                        <li className='-mx-6 mt-auto flex items-center'>
+                        <li className='-mx-3 mt-auto flex items-center'>
                             <div className='flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900'>
                                 <div className='relative h-8 w-8 bg-gray-50'>
                                     <Image 
