@@ -30,45 +30,46 @@ export const authOptions: NextAuthOptions = {
     },
     providers: [
         GoogleProvider({
-            clientId: getGoogleCredentials().clientId,
-            clientSecret: getGoogleCredentials().clientSecret,
+            clientId: process.env.GOOGLE_CLIENT_ID!,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+            authorization: 'https://accounts.google.com/o/oauth2/v2/auth?prompt=select_account',
         }),
     ],
-    callbacks: {
-        async jwt({ token, user }) {
-            const dbUserResult = (await fetchRedis('get', `user:${token.id}`)) as
-                | string
-                | null
+  callbacks: {
+    async jwt({ token, user }) {
+      const dbUserResult = (await fetchRedis('get', `user:${token.id}`)) as
+        | string
+        | null
 
-            if (!dbUserResult) {
-                if (user) {
-                    token.id = user!.id
-                }
+      if (!dbUserResult) {
+        if (user) {
+          token.id = user!.id
+        }
 
-                return token
-            }
+        return token
+      }
 
-            const dbUser = JSON.parse(dbUserResult) as User
+      const dbUser = JSON.parse(dbUserResult) as User
 
-            return {
-                id: dbUser.id,
-                name: dbUser.name,
-                email: dbUser.email,
-                picture: dbUser.image,
-            }
-        },
-        async session({ session, token }) {
-            if (token) {
-                session.user.id = token.id
-                session.user.name = token.name
-                session.user.email = token.email
-                session.user.image = token.picture
-            }
-
-            return session
-        },
-        redirect() {
-            return '/dashboard'
-        },
+      return {
+        id: dbUser.id,
+        name: dbUser.name,
+        email: dbUser.email,
+        picture: dbUser.image,
+      }
     },
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id
+        session.user.name = token.name
+        session.user.email = token.email
+        session.user.image = token.picture
+      }
+
+      return session
+    },
+    redirect() {
+      return '/dashboard'
+    },
+  },
 }
