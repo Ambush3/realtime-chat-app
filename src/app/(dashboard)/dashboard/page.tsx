@@ -23,11 +23,11 @@ const page = async ({ }) => {
                 -1
             )) as string[]
 
-            const lastMessage = JSON.parse(lastMessageRaw) as Message
+            // const lastMessage = JSON.parse(lastMessageRaw) as Message
 
             return {
                 ...friend,
-                lastMessage,
+                // lastMessage,
             }
         })
     )
@@ -64,7 +64,7 @@ const page = async ({ }) => {
                                 </div>
                             </div>
 
-                            <div>
+                            {/* <div>
                                 <h4 className='text-lg font-semibold'>{friend.name}</h4>
                                 <p className='mt-1 max-w-md'>
                                     <span className='text-zinc-400'>
@@ -74,7 +74,7 @@ const page = async ({ }) => {
                                     </span>
                                     {friend.lastMessage.text}
                                 </p>
-                            </div>
+                            </div> */}
                         </Link>
                     </div>
                 ))
