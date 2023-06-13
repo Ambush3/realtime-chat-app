@@ -1,13 +1,15 @@
 import { authOptions } from '@/lib/auth'
 import { getServerSession } from 'next-auth'
 import { notFound } from 'next/navigation'
-import React, { FC, ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 import Link from 'next/link'
 import { Icon, Icons } from '@/components/Icons'
 import Image from 'next/image'
 import SignOutButton from '@/components/SignOutButton'
 import FriendRequestsSidebarOption from '@/components/FriendRequestsSidebarOption'
 import { fetchRedis } from '@/helpers/redis'
+import { getFriendsByUserId } from '@/helpers/get-friends-by-user-id'
+import SidebarChatList from '@/components/SidebarChatList'
 
 interface LayoutProps {
     children: ReactNode
@@ -36,6 +38,8 @@ const Layout = async ({ children } : LayoutProps)=> {
     // Last resort. 
     if (!session) notFound()
 
+    const friends = await getFriendsByUserId(session.user.id)
+
     const unseenRequestCount = (
         await fetchRedis(
             'smembers', 
@@ -50,14 +54,16 @@ const Layout = async ({ children } : LayoutProps)=> {
                     <Icons.Logo className ='h-8 w-auto text-indigo-600' />
                 </Link>
 
-                <div className='ms-3 text-xs font-smibold leading-6 text-gray-400'>
-                    Your Chats
-                </div>
+                { friends.length > 0 ? (
+                    <div className='ms-3 text-xs font-smibold leading-6 text-gray-400'>
+                        Your Chats
+                    </div>
+                ) : null }
 
                 <nav className='ms-3 flex flex-1 flex-col'>
                     <ul role='list' className='flex flex-1 flex-col gap-y-2'>
                         <li>
-                            {/* TODO: chats that the user has  */}
+                            <SidebarChatList sessionId={session.user.id} friends={friends}/>
                         </li>
                         <li>
                             <div className='text-xs font-semibold leading-6 text-gray-400'>
