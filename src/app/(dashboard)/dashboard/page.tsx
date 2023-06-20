@@ -33,7 +33,7 @@ const page = async ({ }) => {
     )
 
     return (
-        <div className='container py-12'>
+        <div className='ms-3 container py-12'>
             <h1 className='font-bold text-5xl mb-8'>Recent chats</h1>
             {friendsWithLastMessage.length === 0 ? (
                 <p className='text-sm text-zinc-500'>Nothing to show here...</p>
