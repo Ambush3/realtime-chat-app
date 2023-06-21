@@ -48,19 +48,19 @@ const Layout = async ({ children } : LayoutProps)=> {
         ).length
         
     return (
-        <div className='w-full flex h-screen'>
-            <div className='flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white pad-x-6'>
-                <Link href='/dashboard' className='ms-3 flex h-16 shrink-0 items-center'>
+        <div className='ms-3 w-full flex h-screen'>
+            <div className="flex h-full w-full max-w-md grow flex-col gap-y-5 border-r border-gray-200 bg-white pad-x-6">
+                <Link href="/dashboard" className="flex h-16 shrink-0 items-center">
                     <Icons.Logo className ='h-8 w-auto text-indigo-600' />
                 </Link>
 
                 { friends.length > 0 ? (
-                    <div className='ms-3 text-xs font-smibold leading-6 text-gray-400'>
+                    <div className='text-xs font-smibold leading-6 text-gray-400'>
                         Your Chats
                     </div>
                 ) : null }
 
-                <nav className='ms-3 flex flex-1 flex-col'>
+                <nav className='flex flex-1 flex-col'>
                     <ul role='list' className='flex flex-1 flex-col gap-y-2'>
                         <li>
                             <SidebarChatList sessionId={session.user.id} friends={friends}/>
@@ -118,12 +118,13 @@ const Layout = async ({ children } : LayoutProps)=> {
                                     </span>
                                 </div>
                             </div>
-                            <SignOutButton className='h-full aspect-square'/>
+                            <SignOutButton className='mr-3 h-full aspect-square'/>
                         </li>
                     </ul>
                 </nav>
             </div>
-            {children}
+
+            <aside className='max-h-screen container py-16 md:py-12 w-full'>{children}</aside>
         </div>
     )
 }       
