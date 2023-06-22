@@ -8,16 +8,17 @@ import { toast } from 'react-hot-toast'
 const Page: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-    async function loginWithGoogle() {
-        setIsLoading(true);
-        try {
-            await signIn('google', { callbackUrl: process.env.NEXTAUTH_URL });
-        } catch (error) {
-            toast.error('Something went wrong with your login.');
-        } finally {
-            setIsLoading(false);
-        }
+  async function loginWithGoogle() {
+    setIsLoading(true)
+    try {
+      await signIn('google')
+    } catch (error) {
+      // display error message to user
+      toast.error('Something went wrong with your login.')
+    } finally {
+      setIsLoading(false)
     }
+  }
 
   return (
     <>
