@@ -24,6 +24,7 @@
     "encoding": "^0.1.13",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.4",
+    "lint": "^0.8.19",
     "lucide-react": "^0.241.0",
     "nanoid": "^4.0.2",
     "next": "13.4.3",
