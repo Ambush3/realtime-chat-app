@@ -23,17 +23,17 @@ const page = async ({ }) => {
                 -1
             )) as string[]
 
-            // const lastMessage = JSON.parse(lastMessageRaw) as Message
+            const lastMessage = JSON.parse(lastMessageRaw) as Message
 
             return {
                 ...friend,
-                // lastMessage,
+                lastMessage,
             }
         })
     )
 
     return (
-        <div className='ms-3 container py-12'>
+        <div className='container py-12'>
             <h1 className='font-bold text-5xl mb-8'>Recent chats</h1>
             {friendsWithLastMessage.length === 0 ? (
                 <p className='text-sm text-zinc-500'>Nothing to show here...</p>
@@ -64,7 +64,7 @@ const page = async ({ }) => {
                                 </div>
                             </div>
 
-                            {/* <div>
+                            <div>
                                 <h4 className='text-lg font-semibold'>{friend.name}</h4>
                                 <p className='mt-1 max-w-md'>
                                     <span className='text-zinc-400'>
@@ -74,7 +74,7 @@ const page = async ({ }) => {
                                     </span>
                                     {friend.lastMessage.text}
                                 </p>
-                            </div> */}
+                            </div>
                         </Link>
                     </div>
                 ))
