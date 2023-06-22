@@ -32,17 +32,14 @@ export default withAuth(
         }
     },
     {
-        // work around for handling 401
-        // without callback, infinite redirect loop will happen
         callbacks: {
             async authorized() {
                 return true
-            }
-        }
+            },
+        },
     }
 )
 
 export const config = {
-    // matcher will match all routes except /login and /dashboard/:path
-    matcher: ['/', '/login', '/dashboard/:path'] 
+    matchter: ['/', '/login', '/dashboard/:path*'],
 }
