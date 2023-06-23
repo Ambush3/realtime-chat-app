@@ -25,7 +25,7 @@ export async function generateMetadata({
   )) as string
   const chatPartner = JSON.parse(chatPartnerRaw) as User
 
-  return { title: `FriendZone | ${chatPartner.name} chat` }
+  return { title: `Friends 4 Life| ${chatPartner.name} chat` }
 }
 
 interface PageProps {
