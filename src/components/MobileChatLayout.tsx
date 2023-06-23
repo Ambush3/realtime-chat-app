@@ -7,8 +7,8 @@ import Link from 'next/link'
 import { FC, Fragment, useEffect, useState } from 'react'
 import { Icons } from './Icons'
 import SignOutButton from './SignOutButton'
-import Button, { buttonVariants } from './ui/button'
-import FriendRequestSidebarOptions from './FriendRequestsSidebarOption'
+import Button, { buttonVariants } from './ui/Button'
+import FriendRequestSidebarOptions from './FriendRequestSidebarOptions'
 import SidebarChatList from './SidebarChatList'
 import { Session } from 'next-auth'
 import { SidebarOption } from '@/types/typings'
@@ -106,7 +106,7 @@ const MobileChatLayout: FC<MobileChatLayoutProps> = ({ friends, session, sidebar
                                                                         <li key={option.name}>
                                                                             <Link
                                                                                 href={option.href}
-                                                                                className='text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 pl-2 rounded-md text-sm leading-6 font-semibold'>
+                                                                                className='text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'>
                                                                                 <span className='text-gray-400 border-gray-200 group-hover:border-indigo-600 group-hover:text-indigo-600 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white'>
                                                                                     <Icon className='h-4 w-4' />
                                                                                 </span>
@@ -118,7 +118,7 @@ const MobileChatLayout: FC<MobileChatLayoutProps> = ({ friends, session, sidebar
                                                                     )
                                                                 })}
 
-                                                                <li className='pt-1.5 pl-2'>
+                                                                <li>
                                                                     <FriendRequestSidebarOptions
                                                                         initialUnseenRequestCount={
                                                                             unseenRequestCount

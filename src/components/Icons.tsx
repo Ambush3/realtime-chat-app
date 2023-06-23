@@ -1,7 +1,5 @@
 import { LucideProps, UserPlus } from 'lucide-react'
 
-
-// use real logo here for later 
 export const Icons = {
     Logo: (props: LucideProps) => (
         <svg {...props} viewBox='0 0 2000 2000'>
