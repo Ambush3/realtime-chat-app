@@ -10,14 +10,11 @@ const Page: FC = () => {
 
   async function loginWithGoogle() {
     setIsLoading(true)
-    try {
-      await signIn('google')
-    } catch (error) {
-      // display error message to user
-      toast.error('Something went wrong with your login.')
-    } finally {
-      setIsLoading(false)
+    const result = await signIn('google', { callbackUrl: '/' })
+    if (result?.error) {
+      toast.error(result.error)
     }
+    setIsLoading(false)
   }
 
   return (
