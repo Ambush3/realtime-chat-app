@@ -1,11 +1,10 @@
 import { FC } from 'react'
-import Skeleton from 'react-loading-skeleton'
+import Skeleton from "react-loading-skeleton"
 
+interface loadingProps { }
 
-interface loadingProps {}
-
-const loading: FC<loadingProps> = ({}) => {
-    return ( 
+const loading: FC<loadingProps> = ({ }) => {
+    return (
         <div className='flex flex-col h-full items-center'>
             <Skeleton className='mb-4' height={40} width={400} />
             {/* chat messages */}
@@ -77,10 +76,10 @@ const loading: FC<loadingProps> = ({}) => {
             {/* chat input */}
 
             {/* <ChatInput
-            chatPartner={chatPartner}
-            img={session.user.image}
-            chatId={chatId}
-        /> */}
+        chatPartner={chatPartner}
+        img={session.user.image}
+        chatId={chatId}
+      /> */}
         </div>
     )
 }

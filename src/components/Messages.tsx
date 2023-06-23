@@ -1,26 +1,26 @@
 'use client'
 
+import { pusherClient } from '@/lib/pusher'
 import { cn, toPusherKey } from '@/lib/utils'
 import { Message } from '@/lib/validations/message'
-import { FC, useEffect, useRef, useState } from 'react'
+import { format } from 'date-fns'
 import Image from 'next/image'
-import { pusherClient } from '@/lib/pusher'
+import { FC, useEffect, useRef, useState } from 'react'
 
 interface MessagesProps {
-  initialMessages: Message[],
-  sessionId: string,
-  sessionImg: string | null | undefined,
-  chatPartner: User,
+  initialMessages: Message[]
+  sessionId: string
   chatId: string
+  sessionImg: string | null | undefined
+  chatPartner: User
 }
 
 const Messages: FC<MessagesProps> = ({
-  initialMessages, 
+  initialMessages,
   sessionId,
-  sessionImg,
+  chatId,
   chatPartner,
-  chatId
-
+  sessionImg,
 }) => {
   const [messages, setMessages] = useState<Message[]>(initialMessages)
 
@@ -33,14 +33,12 @@ const Messages: FC<MessagesProps> = ({
       setMessages((prev) => [message, ...prev])
     }
 
-
     pusherClient.bind('incoming-message', messageHandler)
 
     return () => {
       pusherClient.unsubscribe(
         toPusherKey(`chat:${chatId}`)
       )
-
       pusherClient.unbind('incoming-message', messageHandler)
     }
   }, [chatId])
@@ -48,11 +46,7 @@ const Messages: FC<MessagesProps> = ({
   const scrollDownRef = useRef<HTMLDivElement | null>(null)
 
   const formatTimestamp = (timestamp: number) => {
-    return new Date(timestamp).toLocaleString('en-US', {
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: true
-    })
+    return format(timestamp, 'HH:mm')
   }
 
   return (

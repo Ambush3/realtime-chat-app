@@ -30,7 +30,7 @@ export interface ButtonProps
     isLoading?: boolean
 }
 
-const Button: FC<ButtonProps> = ({
+const button: FC<ButtonProps> = ({
     className,
     children,
     variant,
@@ -49,7 +49,12 @@ const Button: FC<ButtonProps> = ({
     )
 }
 
-export default Button
+export default button
+
+
+
+
+
 
 interface PersonInterface {
     age: number
