@@ -56,14 +56,14 @@ const Layout = async ({ children }: LayoutProps) => {
                 />
             </div>
 
-            <div className='hidden md:flex h-full w-full max-w-[380px] grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6'>
+            <div className='hidden md:flex h-full w-full max-w-[380px] grow flex-col overflow-y-auto border-r border-gray-200 bg-white px-6'>
                 <Link href='/dashboard' className='flex h-16 shrink-0 items-center'>
                     <Icons.Logo className='h-8 w-auto text-sky-600' />
                 </Link>
 
                 {friends.length > 0 ? (
                     <div className='text-xs font-semibold leading-6 text-gray-400'>
-                        Your chats
+                        Your Chats
                     </div>
                 ) : null}
 

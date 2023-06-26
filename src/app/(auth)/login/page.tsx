@@ -29,7 +29,7 @@ const Page: FC = () => {
           <div className='flex flex-col items-center gap-3'>
             <Image
               src="/reshot-icon-send-message-RTY3EQ7USM.svg"
-              alt="Send Message Icon"
+              alt="Login Icon"
               width={96}
               height={96}
             />

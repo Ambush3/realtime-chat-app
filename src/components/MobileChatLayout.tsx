@@ -38,7 +38,7 @@ const MobileChatLayout: FC<MobileChatLayoutProps> = ({ friends, session, sidebar
                     className={buttonVariants({ variant: 'ghost' })}>
                     <Icons.Logo className='h-6 w-auto text-sky-600' />
                 </Link>
-                <Button onClick={() => setOpen(true)} className='gap-4'>
+                <Button onClick={() => setOpen(true)} className='gap-4 ring-sky-600'>
                     Menu <Menu className='h-6 w-6' />
                 </Button>
             </div>
@@ -80,7 +80,7 @@ const MobileChatLayout: FC<MobileChatLayoutProps> = ({ friends, session, sidebar
 
                                                 {friends.length > 0 ? (
                                                     <div className='text-xs font-semibold leading-6 text-gray-400'>
-                                                        Your chats
+                                                        Your Chats
                                                     </div>
                                                 ) : null}
 
