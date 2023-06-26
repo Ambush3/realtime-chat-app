@@ -17,7 +17,6 @@ interface LayoutProps {
     children: ReactNode
 }
 
-// Done after the video and optional: add page metadata
 export const metadata = {
     title: 'Friends For Life | Dashboard',
     description: 'Your dashboard',
