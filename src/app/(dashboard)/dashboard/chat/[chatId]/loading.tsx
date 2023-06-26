@@ -19,7 +19,7 @@ const loading: FC<loadingProps> = ({ }) => {
                                             <div className='relative h-10 w-10'>
                                                 <Skeleton width={40} height={40} borderRadius={999} />
                                             </div>
-                                            <div className='relative mr-3 text-sm bg-indigo-100 text-black py-2 px-4 border border-gray-100 rounded-xl'>
+                                            <div className='relative mr-3 text-sm bg-sky-100 text-black py-2 px-4 border border-gray-100 rounded-xl'>
                                                 <Skeleton className='ml-2' width={150} height={20} />
                                             </div>
                                         </div>
@@ -29,7 +29,7 @@ const loading: FC<loadingProps> = ({ }) => {
                                             <div className='relative h-10 w-10'>
                                                 <Skeleton width={40} height={40} borderRadius={999} />
                                             </div>
-                                            <div className='relative mr-3 text-sm bg-indigo-100 text-black py-2 px-4 border border-gray-100 rounded-xl'>
+                                            <div className='relative mr-3 text-sm bg-sky-100 text-black py-2 px-4 border border-gray-100 rounded-xl'>
                                                 <Skeleton className='ml-2' width={150} height={20} />
                                             </div>
                                         </div>
@@ -51,7 +51,7 @@ const loading: FC<loadingProps> = ({ }) => {
                                             <div className='relative h-10 w-10'>
                                                 <Skeleton width={40} height={40} borderRadius={999} />
                                             </div>
-                                            <div className='relative mr-3 text-sm bg-indigo-100 text-black py-2 px-4 border border-gray-100 rounded-xl'>
+                                            <div className='relative mr-3 text-sm bg-sky-100 text-black py-2 px-4 border border-gray-100 rounded-xl'>
                                                 <Skeleton className='ml-2' width={150} height={20} />
                                             </div>
                                         </div>
