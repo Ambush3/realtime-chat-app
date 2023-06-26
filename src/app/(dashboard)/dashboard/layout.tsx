@@ -47,7 +47,7 @@ const Layout = async ({ children }: LayoutProps) => {
     ).length
 
     return (
-        <div className='position: fixed w-full flex h-screen'>
+        <div className='w-full flex h-screen'>
             <div className='md:hidden'>
                 <MobileChatLayout
                     friends={friends}
@@ -132,10 +132,9 @@ const Layout = async ({ children }: LayoutProps) => {
                 </nav>
             </div>
 
-            <aside className='max-h-screen container py-16 pb-8 md:py-12 w-full'>
+            <aside className='max-h-screen container py-16 md:py-12 w-full'>
                 {children}
             </aside>
-
         </div>
     )
 }
