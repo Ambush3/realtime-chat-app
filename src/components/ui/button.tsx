@@ -50,19 +50,3 @@ const button: FC<ButtonProps> = ({
 }
 
 export default button
-
-
-
-
-
-
-interface PersonInterface {
-    age: number
-    name: string
-    job?: boolean
-}
-
-const Person: PersonInterface = {
-    age: 14,
-    name: 'John'
-}

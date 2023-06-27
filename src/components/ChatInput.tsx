@@ -5,6 +5,7 @@ import { FC, useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import TextareaAutosize from 'react-textarea-autosize'
 import Button from './ui/button'
+import FileUploadButton from './FileUploadButton'
 
 interface ChatInputProps {
     chatPartner: User
@@ -30,10 +31,37 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
             setIsLoading(false)
         }
     }
+    
+    const handleFileUpload = async (file: File) => {
+        // try {
+        //     // Create a FormData object
+        //     const formData = new FormData();
+        //     formData.append('file', file);
+
+        //     // Make an HTTP request to upload the file
+        //     const response = await axios.post('/api/upload', formData, {
+        //         headers: {
+        //             'Content-Type': 'multipart/form-data',
+        //         },
+        //     });
+
+        //     // Access the uploaded file URL from the response
+        //     const { fileUrl } = response.data;
+
+        //     // Do something with the file URL (e.g., display it, send it to the server, etc.)
+        //     console.log(fileUrl);
+        // } catch (error) {
+        //     // Handle any errors that occur during the upload
+        //     console.error('Error uploading file:', error);
+        // }
+        console.log('This is the file', file)
+    };
+
 
     return (
         <div className='border-t border-gray-200 px-4 pt-4 mb-2 sm:mb-0'>
             <div className='relative flex-1 overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-sky-600'>
+                < FileUploadButton onFileUpload={handleFileUpload} />
                 <TextareaAutosize
                     ref={textareaRef}
                     onKeyDown={(e) => {
@@ -59,7 +87,7 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
                 </div>
 
                 <div className='absolute right-0 bottom-0 flex justify-between py-2 pl-3 pr-2'>
-                    <div className='flex-shrin-0'>
+                    <div className='flex-shrink-0'>
                         <Button isLoading={isLoading} onClick={sendMessage} type='submit'>
                             Send
                         </Button>
