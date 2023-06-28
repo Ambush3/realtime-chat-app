@@ -16,6 +16,7 @@ interface Message {
     receiverId: string
     text: string
     timestamp: number
+    media: string
 }
 
 interface FriendRequest {

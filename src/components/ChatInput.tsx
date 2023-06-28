@@ -4,8 +4,10 @@ import axios from 'axios';
 import { FC, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import TextareaAutosize from 'react-textarea-autosize';
-import Button from './ui/button';
+// import Button from './ui/button';
 import FileUploadButton from './FileUploadButton';
+import { ChangeEvent } from 'react';
+import { Loader2 } from 'lucide-react';
 
 interface ChatInputProps {
     chatPartner: User;
@@ -27,18 +29,18 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
                 const formData = new FormData();
                 formData.append('file', selectedFile);
 
-                const response = await axios.post('/api/upload', formData, {
+                const response = await axios.post('/api/message/send', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
 
-                const { fileUrl } = response.data;
+                const { secure_url: imageUrl } = response.data;
 
                 // Send the image URL as a message to the other user
                 await axios.post('/api/message/send', {
                     text: input,
-                    image: fileUrl,
+                    imageUrl, // Include the Cloudinary image URL in the message
                     chatId,
                 });
             } else {
@@ -59,6 +61,15 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
         }
     };
 
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            handleFileUpload(file);
+
+            console.log('this is the current file in ChatInput component', file)
+        }
+    };
+
     const handleFileUpload = (file: File) => {
         setSelectedFile(file);
     };
@@ -70,7 +81,8 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
     return (
         <div className="border-t border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
             <div className="relative flex-1 overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-sky-600">
-                <FileUploadButton onFileUpload={handleFileUpload} selectedFile={selectedFile} onRemoveFile={handleRemoveFile} />
+                {/* <FileUploadButton onFileUpload={handleFileUpload} selectedFile={selectedFile} onRemoveFile={handleRemoveFile} /> */}
+                <FileUploadButton onFileChange={handleFileChange} />
                 <TextareaAutosize
                     ref={textareaRef}
                     onKeyDown={(e) => {
@@ -94,9 +106,15 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
 
                 <div className="absolute right-0 bottom-0 flex justify-between py-2 pl-3 pr-2">
                     <div className="flex-shrink-0">
-                        <Button isLoading={isLoading} onClick={sendMessage} type="submit">
+                        <button
+                            onClick={sendMessage}
+                            disabled={isLoading}
+                            className="cursor-pointer">
+                            {isLoading ? (
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            ) : null}
                             Send
-                        </Button>
+                        </button>
                     </div>
                 </div>
             </div>

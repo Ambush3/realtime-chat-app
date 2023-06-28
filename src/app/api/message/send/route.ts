@@ -6,9 +6,46 @@ import { toPusherKey } from '@/lib/utils'
 import { Message, messageValidator } from '@/lib/validations/message'
 import { nanoid } from 'nanoid'
 import { getServerSession } from 'next-auth'
+import { v2 as cloudinary } from 'cloudinary'
+import multer from 'multer'
+import { CloudinaryStorage, Params } from 'multer-storage-cloudinary'
+
+// cloudinary config 
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET
+})
+
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'RealTimeChat',
+        allowed_formats: ['jpg', 'png', 'jpeg', 'gif'],
+    },
+});
+
+const multerUpload = multer({ storage }).single('media');
+
 
 export async function POST(req: Request) {
     try {
+        await new Promise((resolve, reject) => {
+            multerUpload(req, {} as any, (err) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(true)
+                }
+            })
+        })
+
+        let mediaUrl : string | undefined
+
+        if (req.file) {
+            mediaUrl = req.file.path
+        }
+
         const { text, chatId }: { text: string; chatId: string } = await req.json()
         const session = await getServerSession(authOptions)
 
@@ -40,12 +77,13 @@ export async function POST(req: Request) {
 
         const timestamp = Date.now()
 
-        const messageData: Message = {
+        const messageData = {
             id: nanoid(),
             senderId: session.user.id,
             text,
             timestamp,
-        }
+            media: mediaUrl || '',
+        } as Message
 
         const message = messageValidator.parse(messageData)
 
