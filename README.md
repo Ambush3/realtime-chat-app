@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![RealTimeChatApp](https://github.com/Ambush3/realtime-chat-app/assets/81124911/bd13e4b1-1c33-4022-b52d-a11a4f6b6528)This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
@@ -12,23 +12,15 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![RealTimeChatApp](https://github.com/Ambush3/realtime-chat-app/assets/81124911/e25a81a7-37c1-45bc-b34f-e7ef98c157b9)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Created from React, TypeScript, NextJs, TailWind, using Redis and Upstash for the database. 
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Using your Google account, and one click authorization, you can sign up and login. 
+From there, users can add each other, then decide if they want to accept or deny the friend request. 
 
-## Learn More
+After accepting, users can go back and forth chatting in real time.
+If not in the main chat, a toaster notification will pop up to let the user know they have a new message. 
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Future Enhancements 
+- Working on being able to send media (images at the moment) in the chat
