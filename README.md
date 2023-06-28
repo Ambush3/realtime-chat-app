@@ -1,16 +1,4 @@
-![RealTimeChatApp](https://github.com/Ambush3/realtime-chat-app/assets/81124911/bd13e4b1-1c33-4022-b52d-a11a4f6b6528)This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Real Time Chat Application
 
 ![RealTimeChatApp](https://github.com/Ambush3/realtime-chat-app/assets/81124911/e25a81a7-37c1-45bc-b34f-e7ef98c157b9)
 
