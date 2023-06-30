@@ -4,7 +4,6 @@ import axios from 'axios';
 import { FC, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import TextareaAutosize from 'react-textarea-autosize';
-// import Button from './ui/button';
 import FileUploadButton from './FileUploadButton';
 import { ChangeEvent } from 'react';
 import { Loader2 } from 'lucide-react';
@@ -19,54 +18,52 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [input, setInput] = useState<string>('');
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [url, setUrl] = useState<string>('');
+
 
     const sendMessage = async () => {
         if (!input && !selectedFile) return;
         setIsLoading(true);
 
         try {
+            let imageUrl = '';
+
             if (selectedFile) {
                 const formData = new FormData();
                 formData.append('file', selectedFile);
+                formData.append('upload_preset', 'realtimechat');
 
-                const response = await axios.post('/api/message/send', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
+                const response = await axios.post(
+                    'https://api.cloudinary.com/v1_1/dadihdkuh/image/upload',
+                    formData
+                );
 
-                const { secure_url: imageUrl } = response.data;
-
-                // Send the image URL as a message to the other user
-                await axios.post('/api/message/send', {
-                    text: input,
-                    imageUrl, // Include the Cloudinary image URL in the message
-                    chatId,
-                });
-            } else {
-                // If no image is attached, send only the text as a message
-                await axios.post('/api/message/send', {
-                    text: input,
-                    chatId,
-                });
+                imageUrl = response.data.secure_url;
             }
+
+            await axios.post('/api/message/send', {
+                text: input,
+                imageUrl,
+                chatId,
+            });
 
             setInput('');
             setSelectedFile(null);
             textareaRef.current?.focus();
-        } catch {
+        } catch (error) {
             toast.error('Something went wrong. Please try again later.');
         } finally {
             setIsLoading(false);
         }
     };
 
+
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-            handleFileUpload(file);
+            setSelectedFile(file);
 
-            console.log('this is the current file in ChatInput component', file)
+            console.log('this is the current file in ChatInput component', file);
         }
     };
 
