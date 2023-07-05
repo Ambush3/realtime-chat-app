@@ -86,7 +86,15 @@ const Messages: FC<MessagesProps> = ({
                     'rounded-bl-none':
                       !hasNextMessageFromSameUser && !isCurrentUser,
                   })}>
-                  {message.text}{' '}
+                  {message.text}
+                  {message.imageUrl && (
+                    <Image
+                      src={message.imageUrl}
+                      alt='Image'
+                      width={100}
+                      height={100}
+                    />
+                  )}
                   <span className='ml-2 text-xs text-gray-400'>
                     {formatTimestamp(message.timestamp)}
                   </span>
