@@ -5,30 +5,20 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 interface FileUploadButtonProps {
     onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     onClear: () => void;
-    clearSelectedFile: boolean; // Add the clearSelectedFile prop
+    selectedFile: File | null;
 }
 
-const FileUploadButton: FC<FileUploadButtonProps> = ({
-    onFileChange,
-    onClear,
-    clearSelectedFile,
-}) => {
-    const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
-
+const FileUploadButton: FC<FileUploadButtonProps> = ({ onFileChange, onClear, selectedFile }) => {
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
             onFileChange(event);
-            setSelectedFileName(file.name);
         }
     };
 
-    useEffect(() => {
-        if (clearSelectedFile) {
-            setSelectedFileName(null);
-            onClear();
-        }
-    }, [clearSelectedFile, onClear]);
+    const removeFile = () => {
+        onClear();
+    };
 
     return (
         <div>
@@ -36,13 +26,13 @@ const FileUploadButton: FC<FileUploadButtonProps> = ({
                 <FontAwesomeIcon icon={faPlus} className="mr-2" />
                 Add File
             </label>
-            <input
-                id="file-upload"
-                type="file"
-                className="hidden"
-                onChange={handleFileChange} // Use the handleFileChange function
-            />
-            {selectedFileName && <div>Selected File: {selectedFileName}</div>}
+            <input id="file-upload" type="file" className="hidden" onChange={handleFileChange} />
+            {selectedFile && <div>Selected File: {selectedFile.name}</div>}
+            {selectedFile && (
+                <button className="text-red-500 hover:text-red-600 cursor-pointer" onClick={removeFile}>
+                    Remove
+                </button>
+            )}
         </div>
     );
 };
