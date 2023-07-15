@@ -19,6 +19,11 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [input, setInput] = useState<string>('');
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [clearSelectedFile, setClearSelectedFile] = useState<boolean>(false);
+
+    const handleClear = () => {
+        setClearSelectedFile(true)
+    };
 
     const sendMessage = async () => {
         if (!input && !selectedFile) return;
@@ -48,6 +53,7 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
 
             setInput('');
             setSelectedFile(null);
+            setClearSelectedFile(true);
             textareaRef.current?.focus();
         } catch (error) {
             toast.error('Something went wrong. Please try again later.');
@@ -66,8 +72,11 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
     return (
         <div className="border-t border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
             <div className="relative flex-1 overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-sky-600">
-                <FileUploadButton onFileChange={handleFileChange} />
-
+                <FileUploadButton
+                    onFileChange={handleFileChange}
+                    onClear={() => setClearSelectedFile(false)}
+                    clearSelectedFile={clearSelectedFile}
+                />
                 <TextareaAutosize
                     ref={textareaRef}
                     onKeyDown={(e) => {

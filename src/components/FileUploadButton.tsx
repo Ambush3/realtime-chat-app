@@ -1,21 +1,34 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 interface FileUploadButtonProps {
     onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onClear: () => void;
+    clearSelectedFile: boolean; // Add the clearSelectedFile prop
 }
 
-const FileUploadButton: FC<FileUploadButtonProps> = ({ onFileChange }) => {
+const FileUploadButton: FC<FileUploadButtonProps> = ({
+    onFileChange,
+    onClear,
+    clearSelectedFile,
+}) => {
     const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
-            onFileChange(event); // Call the parent's onFileChange function
-            setSelectedFileName(file.name); // Set the selected file name
+            onFileChange(event);
+            setSelectedFileName(file.name);
         }
     };
+
+    useEffect(() => {
+        if (clearSelectedFile) {
+            setSelectedFileName(null);
+            onClear();
+        }
+    }, [clearSelectedFile, onClear]);
 
     return (
         <div>
