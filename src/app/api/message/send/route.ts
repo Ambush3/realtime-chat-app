@@ -7,9 +7,11 @@ import { Message, messageValidator } from '@/lib/validations/message'
 import { nanoid } from 'nanoid'
 import { getServerSession } from 'next-auth'
 
+
 export async function POST(req: Request) {
     try {
-        const { text, chatId }: { text: string; chatId: string } = await req.json()
+        // const { text, chatId }: { text: string; chatId: string } = await req.json()
+        const { text, chatId, imageUrl }: { text: string; chatId: string; imageUrl: string } = await req.json()
         const session = await getServerSession(authOptions)
 
         if (!session) return new Response('Unauthorized', { status: 401 })
@@ -40,12 +42,13 @@ export async function POST(req: Request) {
 
         const timestamp = Date.now()
 
-        const messageData: Message = {
+        const messageData = {
             id: nanoid(),
             senderId: session.user.id,
             text,
             timestamp,
-        }
+            imageUrl,
+        } as Message
 
         const message = messageValidator.parse(messageData)
 
