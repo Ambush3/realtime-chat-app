@@ -32,7 +32,7 @@
     "multer": "^1.4.5-lts.1",
     "multer-storage-cloudinary": "^4.0.0",
     "nanoid": "^4.0.2",
-    "next": "13.2.4",
+    "next": "^13.2.4",
     "next-auth": "^4.20.1",
     "next-cloudinary": "^4.13.0",
     "pusher": "^5.1.2",
