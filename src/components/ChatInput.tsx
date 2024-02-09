@@ -37,7 +37,7 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
 
                 const response = await axios.post(
                     // 'https://api.cloudinary.com/v1_1/dadihdkuh/image/upload',
-                    `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
+                    'https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload',
                     formData
                 );
 
