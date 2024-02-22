@@ -6,7 +6,10 @@ Cloudinary.v2.config({
     CLOUDINARY_URL: process.env.CLOUDINARY_URL,
 });
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+// fix this error 
+// Type error: Route "src/app/api/message/image-send/route.ts" does not match the required types of a Next.js Route.
+// "handler" is not a valid Route export field.
+async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
@@ -21,3 +24,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(500).json({ error: 'Something went wrong during image upload' });
     }
 }
+
+export default handler;
