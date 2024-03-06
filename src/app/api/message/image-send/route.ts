@@ -1,4 +1,4 @@
-import Cloudinary from 'cloudinary';
+// import Cloudinary from 'cloudinary';
 
 // // Configure Cloudinary
 // Cloudinary.v2.config({

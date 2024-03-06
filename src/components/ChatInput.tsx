@@ -2,7 +2,7 @@
 import { FC, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import TextareaAutosize from 'react-textarea-autosize';
-import FileUploadButton from './FileUploadButton';
+// import FileUploadButton from './FileUploadButton';
 import axios from 'axios';
 import Button from './ui/button';
 import { Loader2 } from 'lucide-react';
@@ -71,7 +71,7 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
     return (
         <div className="border-t border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
             <div className="relative flex-1 overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-sky-600">
-                <FileUploadButton onFileChange={handleFileChange} onClear={handleClear} selectedFile={selectedFile} />
+                {/* <FileUploadButton onFileChange={handleFileChange} onClear={handleClear} selectedFile={selectedFile} /> */}
                 <TextareaAutosize
                     ref={textareaRef}
                     onKeyDown={(e) => {
