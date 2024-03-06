@@ -1,11 +1,11 @@
-// import Cloudinary from 'cloudinary';
+import Cloudinary from 'cloudinary';
 
-// // Configure Cloudinary
-// Cloudinary.v2.config({
-//     CLOUDINARY_URL: process.env.CLOUDINARY_URL,
-// });
+// Configure Cloudinary
+Cloudinary.v2.config({
+    CLOUDINARY_URL: process.env.CLOUDINARY_URL,
+});
 
-// // API endpoint for image upload
+// API endpoint for image upload
 // export default async function handler(req: any, res: any) {
 //     try {
 //         const { file } = req.files;
