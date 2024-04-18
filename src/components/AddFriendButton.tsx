@@ -48,8 +48,13 @@ const AddFriendButton: FC<AddFriendButtonProps> = ({ }) => {
         }
     }
 
-    const onSubmit = (data: FormData) => {
-        addFriend(data.email)
+    const onSubmit = async (data: FormData) => {
+        try {
+            const response = await addFriend(data.email);
+            console.log('Friend added successfully:', data.email, response);
+        } catch (error) {
+            console.error('Error adding friend:', error);
+        }
     }
 
     return (
@@ -64,7 +69,7 @@ const AddFriendButton: FC<AddFriendButtonProps> = ({ }) => {
                 <input
                     {...register('email')}
                     type='text'
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
+                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                     placeholder='you@example.com'
                 />
                 <Button>Add</Button>
