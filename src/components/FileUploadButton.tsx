@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
@@ -9,6 +9,8 @@ interface FileUploadButtonProps {
 }
 
 const FileUploadButton: FC<FileUploadButtonProps> = ({ onFileChange, onClear, selectedFile }) => {
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
@@ -18,6 +20,9 @@ const FileUploadButton: FC<FileUploadButtonProps> = ({ onFileChange, onClear, se
 
     const removeFile = () => {
         onClear();
+        if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+        }
     };
 
     return (
@@ -26,7 +31,13 @@ const FileUploadButton: FC<FileUploadButtonProps> = ({ onFileChange, onClear, se
                 <FontAwesomeIcon icon={faPlus} className="mr-2" style={{ fontSize: '16px', height: '1em', width: '1em' }} />
                 Add File
             </label>
-            <input id="file-upload" type="file" className="hidden" onChange={handleFileChange} />
+            <input
+                id="file-upload"
+                type="file"
+                className="hidden"
+                onChange={handleFileChange}
+                ref={fileInputRef}
+            />
             {selectedFile && <div>Selected File: {selectedFile.name}</div>}
             {selectedFile && (
                 <button className="text-red-500 hover:text-red-600 cursor-pointer" onClick={removeFile}>
