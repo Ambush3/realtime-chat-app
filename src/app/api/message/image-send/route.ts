@@ -1,22 +1,31 @@
 import Cloudinary from 'cloudinary';
 
 // Configure Cloudinary
-// Cloudinary.v2.config({
-//     CLOUDINARY_URL: process.env.CLOUDINARY_URL,
-// });
+Cloudinary.v2.config({
+    CLOUDINARY_URL: process.env.CLOUDINARY_URL,
+});
 
-// // API endpoint for image upload
-// export default async function handler(req: any, res: any) {
-//     try {
-//         const { file } = req.files;
-//         const { secure_url } = await Cloudinary.v2.uploader.upload(file.path);
+// API endpoint for image upload
+export async function POST(req: Request) {
+    const { file } = req.body as unknown as { file: File };
 
-//         res.status(200).json({ url: secure_url });
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ error: 'Something went wrong during image upload' });
-//     }
-// }
+    if (!file) {
+        return new Response('No file found', { status: 400 });
+    }
+
+    const { createReadStream } = file as unknown as { createReadStream: () => any };
+    const stream = createReadStream();
+
+    const uploadResponse = await Cloudinary.v2.uploader.upload(stream, {
+        upload_preset: 'chat-app',
+    });
+
+    return new Response(JSON.stringify(uploadResponse), {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+}
 
 
 

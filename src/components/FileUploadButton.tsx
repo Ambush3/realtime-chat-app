@@ -22,9 +22,9 @@ const FileUploadButton: FC<FileUploadButtonProps> = ({ onFileChange, onClear, se
 
     return (
         <div>
-            <label htmlFor="file-upload" className="text-blue-500 cursor-pointer">
-                {/* <FontAwesomeIcon icon={faPlus} className="mr-2" /> */}
-                {/* Add File */}
+            <label htmlFor="file-upload" className="text-blue-500 cursor-pointer flex items-center">
+                <FontAwesomeIcon icon={faPlus} className="mr-2" style={{ fontSize: '16px', height: '1em', width: '1em' }} />
+                Add File
             </label>
             <input id="file-upload" type="file" className="hidden" onChange={handleFileChange} />
             {selectedFile && <div>Selected File: {selectedFile.name}</div>}
