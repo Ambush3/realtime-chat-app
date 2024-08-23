@@ -91,8 +91,8 @@ const Messages: FC<MessagesProps> = ({
                     <Image
                       src={message.imageUrl}
                       alt='Image'
-                      width={100}
-                      height={100}
+                      width={300}
+                      height={300}
                     />
                   )}
                   {message.text}
