@@ -8,6 +8,7 @@ module.exports = {
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class', // enable dark mode by adding the class `dark` to the body
   theme: {
     container: {
       center: true,
