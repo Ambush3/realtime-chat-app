@@ -1,4 +1,5 @@
 import Providers from '@/components/Providers'
+import { DarkModeProvider } from './(dashboard)/dashboard/darkmode'
 import './globals.css'
 
 export const metadata = {
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <Providers>{children}</Providers>
+        <DarkModeProvider>
+          <Providers>{children}</Providers>
+        </DarkModeProvider>
       </body>
     </html>
   )
