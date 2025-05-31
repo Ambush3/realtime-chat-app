@@ -5,7 +5,6 @@ Cloudinary.v2.config({
     CLOUDINARY_URL: process.env.CLOUDINARY_URL,
 });
 
-// API endpoint for image upload
 export async function POST(req: Request) {
     const { file } = req.body as unknown as { file: File };
 

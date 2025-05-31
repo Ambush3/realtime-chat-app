@@ -34,7 +34,6 @@ export async function POST(req: Request) {
             })
         }
 
-        // check if user is already added
         const isAlreadyAdded = (await fetchRedis(
             'sismember',
             `user:${idToAdd}:incoming_friend_requests`,
@@ -45,7 +44,6 @@ export async function POST(req: Request) {
             return new Response('Already added this user', { status: 400 })
         }
 
-        // check if user is already added
         const isAlreadyFriends = (await fetchRedis(
             'sismember',
             `user:${session.user.id}:friends`,
@@ -55,8 +53,6 @@ export async function POST(req: Request) {
         if (isAlreadyFriends) {
             return new Response('Already friends with this user', { status: 400 })
         }
-
-        // valid request, send friend request
 
         await pusherServer.trigger(
             toPusherKey(`user:${idToAdd}:incoming_friend_requests`),

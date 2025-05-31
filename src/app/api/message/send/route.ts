@@ -10,7 +10,6 @@ import { getServerSession } from 'next-auth'
 
 export async function POST(req: Request) {
     try {
-        // const { text, chatId }: { text: string; chatId: string } = await req.json()
         const { text, chatId, imageUrl }: { text: string; chatId: string; imageUrl: string } = await req.json()
         const session = await getServerSession(authOptions)
 
@@ -52,7 +51,6 @@ export async function POST(req: Request) {
 
         const message = messageValidator.parse(messageData)
 
-        // notify all connected chat room clients
         await pusherServer.trigger(toPusherKey(`chat:${chatId}`), 'incoming-message', message)
 
         await pusherServer.trigger(toPusherKey(`user:${friendId}:chats`), 'new_message', {
@@ -61,7 +59,6 @@ export async function POST(req: Request) {
             senderName: sender.name
         })
 
-        // all valid, send the message
         await db.zadd(`chat:${chatId}:messages`, {
             score: timestamp,
             member: JSON.stringify(message),
