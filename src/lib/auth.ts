@@ -30,21 +30,25 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) token.id = user.id;
       if (!token.id) return token;
-
-      const dbUserJson = await fetchRedis('get', `user:${token.id}`);
-      if (!dbUserJson) return token;
-
-      const dbUser = JSON.parse(dbUserJson as string) as User;
-
-      return {
-        ...token,
-        id: dbUser.id,
-        name: dbUser.name,
-        email: dbUser.email,
-        picture: dbUser.image,
-      };
+      
+      try {
+        const dbUserJson = await fetchRedis('get', `user:${token.id}`);
+        if (!dbUserJson) return token;
+        
+        const dbUser = JSON.parse(dbUserJson as string) as User;
+        return {
+          ...token,
+          id: dbUser.id,
+          name: dbUser.name,
+          email: dbUser.email,
+          picture: dbUser.image,
+        };
+      } catch (error) {
+        console.error('JWT callback error:', error);
+        // Return token without DB data if Redis fails
+        return token;
+      }
     },
-
     async session({ session, token }) {
       if (token && session.user) {
         session.user.id = token.id;
