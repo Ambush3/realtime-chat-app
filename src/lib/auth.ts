@@ -7,25 +7,20 @@ import { fetchRedis } from '@/helpers/redis';
 function getGoogleCredentials() {
   const clientId = process.env.GOOGLE_CLIENT_ID;
   const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-
   if (!clientId) throw new Error('Missing GOOGLE_CLIENT_ID');
   if (!clientSecret) throw new Error('Missing GOOGLE_CLIENT_SECRET');
-
   return { clientId, clientSecret };
 }
 
 export const authOptions: NextAuthOptions = {
   adapter: UpstashRedisAdapter(db),
   session: { strategy: 'jwt' },
-
   pages: {
     signIn: '/login',
   },
-
   providers: [
     GoogleProvider(getGoogleCredentials()),
   ],
-
   callbacks: {
     async jwt({ token, user }) {
       if (user) token.id = user.id;
@@ -45,7 +40,6 @@ export const authOptions: NextAuthOptions = {
         };
       } catch (error) {
         console.error('JWT callback error:', error);
-        // Return token without DB data if Redis fails
         return token;
       }
     },
@@ -58,9 +52,11 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-
-    redirect() {
-      return '/dashboard';
+    redirect({ url, baseUrl }) {
+      if (url.startsWith(baseUrl)) {
+        return '/dashboard';
+      }
+      return url;
     },
   },
 };
