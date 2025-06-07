@@ -16,11 +16,13 @@ export default withAuth(
         )
 
         if (isLoginPage) {
-            if (isAuth) {
-                return NextResponse.redirect(new URL('/dashboard', req.url))
-            }
-
-            return NextResponse.next()
+          if (isAuth) {
+              if (req.nextUrl.searchParams.get('callbackUrl')?.includes('/dashboard')) {
+                  return NextResponse.next()
+              }
+              return NextResponse.redirect(new URL('/dashboard', req.url))
+          }
+          return NextResponse.next()
         }
 
         if (!isAuth && isAccessingSensitiveRoute) {
@@ -41,5 +43,5 @@ export default withAuth(
 )
 
 export const config = {
-    matchter: ['/', '/login', '/dashboard/:path*'],
+    matcher: ['/', '/login', '/dashboard/:path*'],
 }
