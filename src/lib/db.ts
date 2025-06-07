@@ -9,10 +9,5 @@ if (!redisUrl || !redisToken) {
 
 export const db = new Redis({ 
     url: redisUrl, 
-    token: redisToken,
-    retry: {
-        retries: 1,
-        backoff: () => 100,    },
-    
-    automaticDeserialization: false,
+    token: redisToken 
 });
