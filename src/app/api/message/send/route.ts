@@ -18,7 +18,7 @@ export async function POST(req: Request) {
         console.log('Session:', JSON.stringify(session, null, 2));
         
         if (!session) {
-            console.log('❌ No session found');
+            console.log('No session found');
             return new Response('Unauthorized', { status: 401 })
         }
         
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
         console.log('userId1 type:', typeof userId1);
         
         if (session.user.id !== userId1 && session.user.id !== userId2) {
-            console.log('❌ User not in chat. Session ID:', session.user.id, 'Chat IDs:', userId1, userId2);
+            console.log('User not in chat. Session ID:', session.user.id, 'Chat IDs:', userId1, userId2);
             return new Response('Unauthorized', { status: 401 })
         }
         
@@ -45,7 +45,7 @@ export async function POST(req: Request) {
         
         const isFriend = friendList.includes(friendId)
         if (!isFriend) {
-            console.log('❌ Not friends');
+            console.log('Not friends');
             return new Response('Unauthorized', { status: 401 })
         }
         
@@ -84,7 +84,7 @@ export async function POST(req: Request) {
         console.log('✅ Message sent successfully');
         return new Response('OK')
     } catch (error) {
-        console.error('❌ Message send error:', error);
+        console.error('Message send error:', error);
         if (error instanceof Error) {
             return new Response(error.message, { status: 500 })
         }
