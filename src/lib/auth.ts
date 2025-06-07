@@ -13,7 +13,7 @@ function getGoogleCredentials() {
 }
 
 export const authOptions: NextAuthOptions = {
-  adapter: UpstashRedisAdapter(db),
+  // adapter: UpstashRedisAdapter(db), // Temporarily commented out
   session: { strategy: 'jwt' },
   pages: {
     signIn: '/login',
@@ -22,26 +22,39 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider(getGoogleCredentials()),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async signIn({ user, account, profile }) {
+      console.log('Sign in attempt:', { user: user?.email, account: account?.provider });
+      return true;
+    },
+    async jwt({ token, user, account }) {
+      console.log('JWT callback:', { 
+        tokenId: token?.id, 
+        userId: user?.id, 
+        hasAccount: !!account 
+      });
+      
       if (user) token.id = user.id;
       if (!token.id) return token;
       
-      try {
-        const dbUserJson = await fetchRedis('get', `user:${token.id}`);
-        if (!dbUserJson) return token;
-        
-        const dbUser = JSON.parse(dbUserJson as string) as User;
-        return {
-          ...token,
-          id: dbUser.id,
-          name: dbUser.name,
-          email: dbUser.email,
-          picture: dbUser.image,
-        };
-      } catch (error) {
-        console.error('JWT callback error:', error);
-        return token;
-      }
+      // Skip Redis call while adapter is disabled
+      // try {
+      //   const dbUserJson = await fetchRedis('get', `user:${token.id}`);
+      //   if (!dbUserJson) return token;
+      //   
+      //   const dbUser = JSON.parse(dbUserJson as string) as User;
+      //   return {
+      //     ...token,
+      //     id: dbUser.id,
+      //     name: dbUser.name,
+      //     email: dbUser.email,
+      //     picture: dbUser.image,
+      //   };
+      // } catch (error) {
+      //   console.error('JWT callback error:', error);
+      //   return token;
+      // }
+      
+      return token;
     },
     async session({ session, token }) {
       if (token && session.user) {
@@ -53,6 +66,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
     redirect({ url, baseUrl }) {
+      console.log('Redirect called:', { url, baseUrl });
       if (url.startsWith(baseUrl)) {
         return '/dashboard';
       }
