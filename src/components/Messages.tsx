@@ -69,7 +69,7 @@ const Messages: FC<MessagesProps> = ({
               })}
             >
               <div
-                className={cn('flex flex-col space-y-2 text-base max-w-xs mx-2', {
+                className={cn('flex flex-col text-base max-w-xs mx-2', {
                   'order-1 items-end': isCurrentUser,
                   'order-2 items-start': !isCurrentUser,
                 })}
@@ -93,7 +93,7 @@ const Messages: FC<MessagesProps> = ({
                     Delivered
                   </span>
                 )}
-                <span className="block mt-1 text-xs text-gray-400">
+                <span className="block text-xs text-gray-400">
                   {formatTimestamp(message.timestamp)}
                 </span>
               </div>
