@@ -25,7 +25,7 @@ export const metadata = {
 const sidebarOptions: SidebarOption[] = [
     {
         id: 1,
-        name: 'Add friend',
+        name: 'Add Friend',
         href: '/dashboard/add',
         Icon: 'UserPlus',
     },
