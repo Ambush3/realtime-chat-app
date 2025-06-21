@@ -29,12 +29,6 @@ const sidebarOptions: SidebarOption[] = [
         href: '/dashboard/add',
         Icon: 'UserPlus',
     },
-    {
-        id: 2,
-        name: 'Friend List',
-        href: '/dashboard/friendList',
-        Icon: 'Logo',
-    }
 ]
 
 const Layout = async ({ children }: LayoutProps) => {
